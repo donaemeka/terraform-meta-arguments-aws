@@ -1,22 +1,22 @@
-# 1. depends_on Example (S3 -> EC2 dependency)
+# 1. depends_on  (S3 -> EC2 dependency)
 resource "aws_s3_bucket" "data_bucket" {
   bucket = "my-data-bucket-${random_id.suffix.hex}"
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-020cba7c55df1f615"  # Replace with actual AMI
+  ami           = "ami-020cba7c55df1f615"  
   instance_type = "t2.micro"
   depends_on    = [aws_s3_bucket.data_bucket]
 }
 
-# 2. count Example (3 identical instances)
+# 2. count  (3 identical instances)
 resource "aws_instance" "web" {
   count         = 3
   ami           = "ami-020cba7c55df1f615"
   instance_type = "t2.micro"
 }
 
-# 3. for_each Example (Map-driven instances)
+# 3. for_each (Map-driven instances)
 variable "server_names" {
   type    = set(string)
   default = ["app1", "app2", "app3"]
@@ -31,7 +31,7 @@ resource "aws_instance" "servers" {
   }
 }
 
-# 4. lifecycle Example (Prevent destruction)
+# 4. lifecycle (Prevent destruction)
 resource "aws_s3_bucket" "protected_bucket" {
   bucket = "do-not-delete-${random_id.suffix.hex}"
   lifecycle {
@@ -39,7 +39,7 @@ resource "aws_s3_bucket" "protected_bucket" {
   }
 }
 
-# 5. provider Example (Multi-region)
+# 5. provider  (Multi-region)
 provider "aws" {
   alias  = "us"
   region = "us-east-1"
@@ -66,13 +66,13 @@ resource "aws_instance" "eu_server" {
 resource "aws_instance" "nginx" {
   ami           = "ami-020cba7c55df1f615"
   instance_type = "t2.micro"
-  key_name      = "enugu"  # Replace
+  key_name      = "enugu"  
 
   provisioner "remote-exec" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file ("enugu.pem")  # Update path
+      private_key = file ("enugu.pem")  
       host        = self.public_ip
     }
     inline = [
