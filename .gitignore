@@ -1,7 +1,6 @@
 
 cat > .gitignore << 'EOF'
 **/.terraform/*
-**/.terraform.lock.hcl
 
 # State files
 *.tfstate
