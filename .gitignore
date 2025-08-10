@@ -1,0 +1,23 @@
+
+cat > .gitignore << 'EOF'
+**/.terraform/*
+**/.terraform.lock.hcl
+
+# State files
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Sensitive files
+**/*.pem
+**/*.key
+**/secrets.auto.tfvars
+EOF
