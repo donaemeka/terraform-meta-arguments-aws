@@ -35,7 +35,7 @@ resource "aws_instance" "servers" {
 resource "aws_s3_bucket" "protected_bucket" {
   bucket = "do-not-delete-${random_id.suffix.hex}"
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 
